@@ -55,25 +55,28 @@
         var maxOrderId = Northwind.Orders.Max(o => o.OrderId);
         maxOrderId++;
 
-        for (int i = 0; i < 35000; i++)
+        if (Northwind.Orders.Count() < 35000)
         {
-            Order order = new Order()
-                {
-                    OrderDate = DateTime.Now,
-                    ShippedDate = DateTime.Now,
-                    ShipName = "Name" + i,
-                    ShipCity = "City" + i,
-                    ShipCountry = "Country" + i,
-                    Freight = i,
-                    OrderId = maxOrderId
-                };
+            for (int i = 0; i < 35000; i++)
+            {
+                Order order = new Order()
+                    {
+                        OrderDate = DateTime.Now,
+                        ShippedDate = DateTime.Now,
+                        ShipName = "Name" + i,
+                        ShipCity = "City" + i,
+                        ShipCountry = "Country" + i,
+                        Freight = i,
+                        OrderId = maxOrderId
+                    };
 
-            maxOrderId++;
+                maxOrderId++;
 
-            Northwind.Orders.Add(order);
-        }
+                Northwind.Orders.Add(order);
+            }
 
-        Northwind.SaveChanges();
+            Northwind.SaveChanges();
+        }      
 
         InstantFeedbackSource = new EntityInstantFeedbackSource(e =>
         {
